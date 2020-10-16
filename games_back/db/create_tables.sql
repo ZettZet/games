@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS games(
     title VARCHAR(10) NOT NULL,
     dicription TEXT,
     price INT NOT NULL CHECK(price > 0),
+    title_image IMAGE NOT NULL
 );
 CREATE TABLE IF NOT EXISTS customer(
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
