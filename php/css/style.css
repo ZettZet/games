@@ -1,0 +1,84 @@
+.bodyMain {
+    box-shadow: 0px 5px 5px 5px rgba(62, 237, 232, 0.2);
+}
+
+.textMain {
+    text-align: justify;
+}
+
+.tableSelectContainer {
+    background: inherit;
+    border: 1px solid rgb(79, 126, 128);
+    box-shadow: 0px 5px 5px 5px rgba(79, 126, 128, 0.2);
+
+}
+
+.tableSelect {
+    width: 300px;
+    top: 1px;
+    left: 1px;
+    border: none;
+    background: inherit;
+    color: #3e6969;
+}
+
+td, th {
+    word-wrap: break-word;
+}
+
+.fixTable {
+    color: inherit;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.formSelTab {
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.workdbdiv {
+    background: #b36b6b;
+    box-shadow: 0px 0px 11px 9px rgba(229, 44, 44, 0.76);
+    padding: 2px;
+    font-size: 20px;
+}
+
+.textbox {
+    display: flex;
+}
+
+.lablebox {
+    display: block;
+    width: 15%;
+}
+
+.my-nav-item {
+    color: #1b5353;
+    font-weight: bold;
+
+    margin: 2px;
+    display: block;
+    text-decoration: none;
+    transition: color linear 0.5s;
+}
+
+.my-nav-item:hover {
+    color: #3aeeef;
+
+}
+
+.text_input{
+    background: #2C2C2C;
+    border: none;
+    color: white;
+}
+
+.btn-mixin{
+    font-weight: bold;
+}
+.btn-mixin--lighter{
+    color: rgb(82, 91, 100);
+}
