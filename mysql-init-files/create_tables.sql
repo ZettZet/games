@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS discount
 );
 CREATE TABLE IF NOT EXISTS carts
 (
+    id          BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     game_price  INT NOT NULL,
     status      ENUM ('taken', 'payed') DEFAULT ('taken'),
     game_id     BIGINT,

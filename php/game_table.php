@@ -13,10 +13,10 @@ echo $buffer;
 
     <table>
         <tr>
-            <th class="foreign_items">id игры</th>
-            <th class="foreign_items">Название игры</th>
-            <th class="foreign_items">Описание</th>
-            <th class="foreign_items">Цена</th>
+            <th>id игры</th>
+            <th>Название игры</th>
+            <th>Описание</th>
+            <th>Цена</th>
         </tr>
         <?
         include "Utils.php";
