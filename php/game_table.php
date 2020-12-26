@@ -1,15 +1,7 @@
 <?
-ob_start();
-include "./html/top.html";
-$buffer = ob_get_contents();
-ob_get_clean();
-
-$title = "Таблица игр";
-$buffer = preg_replace('/(<title>)(.*?)(<\/title>)/i', '$1' . $title . '$3', $buffer);
-echo $buffer;
+include 'Utils.php';
+echo Utils::renderHeader("./html/top.html", "Таблица игр")
 ?>
-    <h1>Таблицы</h1>
-    <h3>Таблица игр</h3>
 
     <table>
         <tr>
@@ -19,7 +11,6 @@ echo $buffer;
             <th>Цена</th>
         </tr>
         <?
-        include "Utils.php";
         $db = Utils::getPDO();
 
         foreach ($db->query("SELECT id, title, description, price FROM games;") as $row) {
@@ -57,14 +48,9 @@ echo $buffer;
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Изменить у игры
-            <select name="id_game_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id, title FROM games;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['title']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
                 ?>
-            </select>
             название на
             <input type="text" name="new_title" required>
             ?
@@ -78,14 +64,9 @@ echo $buffer;
             <input type="hidden" name="back" value="game_table.php">
             <span>
             Изменить описание игры
-            <select name="id_game_selector" required>
-                <?
-        
-                foreach ($db->query("SELECT id, title FROM games;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['title']}</option>";
-                }
-                ?>
-            </select>
+                                <?
+                                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
+                                ?>
                 на
                 <textarea class="text__area" name="new_description" cols="30" rows="3" required></textarea>
             ?
@@ -98,14 +79,9 @@ echo $buffer;
             <input type="hidden" name="back" value="game_table.php">
             <span>
             Изменить у игры
-            <select name="id_game_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id, title FROM games;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['title']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
                 ?>
-            </select>
                 цену на
                 <input type="number" min="0" name="new_description" required>
             ?
@@ -119,14 +95,9 @@ echo $buffer;
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Удалить игру
-            <select name="id_game_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id, title FROM games;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['title']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
                 ?>
-            </select>
              ?
             <input type="submit" value="Да">
         </span>

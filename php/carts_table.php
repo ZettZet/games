@@ -1,15 +1,7 @@
 <?
-ob_start();
-include "./html/top.html";
-$buffer = ob_get_contents();
-ob_get_clean();
-
-$title = "Таблица покупок";
-$buffer = preg_replace('/(<title>)(.*?)(<\/title>)/i', '$1' . $title . '$3', $buffer);
-echo $buffer;
+include "Utils.php";
+echo Utils::renderHeader("./html/top.html", "Таблица покупок")
 ?>
-<h1>Таблицы</h1>
-<h3>Таблица покупок</h3>
 <table>
     <tr>
         <th>id игры</th>
@@ -24,7 +16,6 @@ echo $buffer;
 
     <?
     $replacer = ['taken' => 'В корзине', 'payed' => 'Оплачено'];
-    include "Utils.php";
     $db = Utils::getPDO();
     foreach ($db->query("SELECT g.id as id, g.title as title, g.price as price, group_concat(c.name) as name, status, game_price, c2.email as email, d.percent as percent FROM carts AS crt JOIN games g ON g.id = crt.game_id JOIN game_category gc ON g.id = gc.game_id JOIN category c ON c.id = gc.category_id JOIN customers c2 ON c2.id = crt.customer_id LEFT JOIN discount d ON d.id = crt.discount_id group by email, status, price, id, title, percent, game_price;") as $row) {
         $percent = $row['percent'] ?? 0;
@@ -44,27 +35,20 @@ echo $buffer;
 
 <div class="operations">
     <!--    create    -->
-    <form action="handler.php" class="operation" method="post">
+    <form action="special_handler.php" class="operation" method="post">
         <input type="hidden" name="query"
-               value="INSERT INTO carts(game_id, customer_id, game_price) VALUES (:game_id, :customer_id, (SELECT price FROM games WHERE id=:game_id));">
+               value="INSERT INTO carts(game_id, customer_id, game_price) VALUES (?, ?, (SELECT price FROM games WHERE id=?));">
         <input type="hidden" name="back" value="carts_table.php">
         <span>
             Хотите добавить в корзину игру
-            <select name="game_id" required>
-                <?
-                foreach ($db->query("SELECT id, title, price FROM games;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['title']} — {$row['price']}</option>";
-                }
-                ?>
-            </select>
-            покупателю с email
-            <select name="customer_id" required>
             <?
-            foreach ($db->query("SELECT id, email FROM customers;") as $row) {
-                echo "<option value='{$row['id']}'>{$row['email']}</option>";
-            }
+            echo Utils::renderQueryToSelect("game_id", "title", "games");
             ?>
-                </select>
+            покупателю с email
+
+            <?
+            echo Utils::renderQueryToSelect("customer_id", "email", "customers");
+            ?>
             ?
             <input type="submit" value="Да">
         </span>
@@ -86,13 +70,9 @@ where dst.id = src.id;">
         <input type="hidden" name="back" value="carts_table.php">
         <span>
             Купить игры покупателя с email
-            <select name="customer_id" required>
             <?
-            foreach ($db->query("SELECT id, email FROM customers;") as $row) {
-                echo "<option value='{$row['id']}'>{$row['email']}</option>";
-            }
+            echo Utils::renderQueryToSelect("customer_id", "email", "customers");
             ?>
-            </select>
             ?
             <?
             $todays_discount = $db->prepare("SELECT percent FROM discount WHERE CURDATE() BETWEEN starts  AND ends;");

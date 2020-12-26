@@ -1,15 +1,7 @@
 <?
-ob_start();
-include "./html/top.html";
-$buffer = ob_get_contents();
-ob_get_clean();
-
-$title = "Таблица скидок";
-$buffer = preg_replace('/(<title>)(.*?)(<\/title>)/i', '$1' . $title . '$3', $buffer);
-echo $buffer;
+include 'Utils.php';
+echo Utils::renderHeader("./html/top.html", "Таблица скидок")
 ?>
-    <h1>Таблицы</h1>
-    <h3>Таблица скидок</h3>
     <table>
         <tr>
             <th>id</th>
@@ -19,7 +11,6 @@ echo $buffer;
         </tr>
 
         <?
-        include "Utils.php";
         $db = Utils::getPDO();
 
         foreach ($db->query("SELECT id, percent, starts, ends FROM discount;") as $row) {
@@ -57,14 +48,9 @@ echo $buffer;
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Изменить у скидки с id равным
-            <select name="id_discount_selector" required>
-                <?
-        
-                foreach ($db->query("SELECT id FROM discount;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['id']}</option>";
-                }
-                ?>
-            </select>
+                                <?
+                                echo Utils::renderQueryToSelect("id_discount_selector", "id", "discount");
+                                ?>
             размер скидки на
             <input type="number" max="100" min="0" name="new_percent" required>
             ?
@@ -78,14 +64,9 @@ echo $buffer;
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Изменить у скидки с id равным
-            <select name="id_discount_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id FROM discount;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['id']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_discount_selector", "id", "discount");
                 ?>
-            </select>
                 дату начала на
             <input type="date" id="starts" name="new_starts" onchange="validate_date()" required>
                 и дату конца на
@@ -100,14 +81,9 @@ echo $buffer;
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Удалить скидку с id равным
-            <select name="id_discount_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id FROM discount;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['id']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_discount_selector", "id", "discount");
                 ?>
-            </select>
              ?
             <input type="submit" value="Да">
         </span>

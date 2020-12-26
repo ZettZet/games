@@ -1,15 +1,7 @@
 <?
-ob_start();
-include "./html/top.html";
-$buffer = ob_get_contents();
-ob_get_clean();
-
-$title = "Таблица покупателей";
-$buffer = preg_replace('/(<title>)(.*?)(<\/title>)/i', '$1' . $title . '$3', $buffer);
-echo $buffer;
+include 'Utils.php';
+echo Utils::renderHeader("./html/top.html", "Таблица покупателей")
 ?>
-    <h1>Таблицы</h1>
-    <h3>Таблица покупателей</h3>
     <table>
         <tr>
             <th>id</th>
@@ -18,7 +10,6 @@ echo $buffer;
         </tr>
 
         <?
-        include "Utils.php";
         $db = Utils::getPDO();
 
         foreach ($db->query("SELECT id, email, pass FROM customers;") as $row) {
@@ -55,14 +46,9 @@ echo $buffer;
             <input type="hidden" name="back" value="customer_table.php">
             <span>
             Изменить у покупателя email с
-            <select name="id_customer_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id, email FROM customers;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['email']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_customer_selector", "email", "customers");
                 ?>
-            </select>
             на
             <input type="email" pattern="^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" name="new_email" required>
             ?
@@ -76,14 +62,9 @@ echo $buffer;
             <input type="hidden" name="back" value="customer_table.php">
             <span>
             Изменить у покупателя с email
-            <select name="id_customer_selector" required>
                 <?
-        
-                foreach ($db->query("SELECT id, email FROM customers;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['email']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_customer_selector", "email", "customers");
                 ?>
-            </select>
                 пароль на
                 <input type="password" id="pass" name="new_pass" onchange="validate()" required>
                 =
@@ -97,15 +78,10 @@ echo $buffer;
             <input type="hidden" name="query" value="DELETE FROM customers WHERE id=:id_customer_selector">
             <input type="hidden" name="back" value="customer_table.php">
             <span>
-            Удалить покупателя с id равным
-            <select name="id_customer_selector" required>
+            Удалить покупателя по email
                 <?
-        
-                foreach ($db->query("SELECT id FROM customers;") as $row) {
-                    echo "<option value='{$row['id']}'>{$row['id']}</option>";
-                }
+                echo Utils::renderQueryToSelect("id_customer_selector", "email", "customers");
                 ?>
-            </select>
              ?
             <input type="submit" value="Да">
         </span>
