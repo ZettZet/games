@@ -34,7 +34,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица игр")
             Добавить игру
             <input type="text" name="title" required>
             с описанием
-                <textarea class="text__area" name="description" cols="30" rows="3" required></textarea>
+                <textarea class="text__area" name="description" cols="30" rows="2" required></textarea>
                 по цене
             <input type="number" min="0" name="price" required>
             ?
@@ -52,38 +52,11 @@ echo Utils::renderHeader("./html/top.html", "Таблица игр")
                 echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
                 ?>
             название на
-            <input type="text" name="new_title" required>
-            ?
-            <input type="submit" value="Да">
-        </span>
-        </form>
-
-        <form action="handler.php" class="operation" method="post">
-            <input type="hidden" name="query"
-                   value="UPDATE games SET description=:new_description WHERE id=:id_game_selector;">
-            <input type="hidden" name="back" value="game_table.php">
-            <span>
-            Изменить описание игры
-                                <?
-                                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
-                                ?>
-                на
-                <textarea class="text__area" name="new_description" cols="30" rows="3" required></textarea>
-            ?
-            <input type="submit" value="Да">
-        </span>
-        </form>
-
-        <form action="handler.php" class="operation" method="post">
-            <input type="hidden" name="query" value="UPDATE games SET price=:new_price WHERE id=:id_game_selector;">
-            <input type="hidden" name="back" value="game_table.php">
-            <span>
-            Изменить у игры
-                <?
-                echo Utils::renderQueryToSelect("id_game_selector", "title", "games");
-                ?>
+            <input type="text" id="title" name="new_title" required>
+                описание на
+                <textarea class="text__area" id="description" name="new_description" cols="30" rows="2" required></textarea>
                 цену на
-                <input type="number" min="0" name="new_description" required>
+                <input type="number" id="price" min="0" name="new_description" required>
             ?
             <input type="submit" value="Да">
         </span>
@@ -104,6 +77,13 @@ echo Utils::renderHeader("./html/top.html", "Таблица игр")
         </form>
 
     </div>
+
+
+    <script>
+        function update(id) {
+            return update_values(`http://${host}/api/get_game.php?id=${id}`);
+        }
+    </script>
 
 
 <?

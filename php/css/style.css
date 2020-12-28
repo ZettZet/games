@@ -268,3 +268,14 @@ td input {
     font-weight: bold;
     text-align: center;
 }
+
+.image{
+    width: 100%;
+}
+
+.image img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

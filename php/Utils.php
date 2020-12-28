@@ -60,7 +60,7 @@ class Utils
 
     public static function renderQueryToSelect(string $selectName, string $additionalParam, string $nameOfTable): string {
         $db = self::getPDO();
-        $select = "<select name='{$selectName}' required>";
+        $select = "<select name='{$selectName}' onchange='update(this.value)' id='id' required>";
 
         foreach ($db->query("SELECT id, {$additionalParam} FROM {$nameOfTable};") as $row) {
             $select .= "<option value='{$row['id']}'>{$row[$additionalParam]}</option>";

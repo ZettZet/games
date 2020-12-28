@@ -166,11 +166,11 @@ include "Utils.php";
 <button class="accordion">Игры по продажам</button>
 <div class="panel">
     <div class="query">
-        <pre><code class="sql bigger_font_size">SELECT COUNT(game_id) FROM carts, (SELECT DISTINCT game_id AS ids FROM carts WHERE status='payed') AS src WHERE status='payed' AND game_id=src.ids;</code></pre>
+        <pre><code class="sql bigger_font_size">SELECT g.title, COUNT(*) AS sells FROM carts JOIN games g ON g.id = carts.game_id WHERE status='payed' GROUP BY game_id ORDER BY sells DESC;</code></pre>
         <p class="description">Вывести самые продаваемые игры
         <form action="queries.php" method="post" class="operation">
             <input type="hidden" name="query"
-                   value="SELECT COUNT(game_id) FROM carts, (SELECT DISTINCT game_id AS ids FROM carts WHERE status='payed') AS src WHERE status='payed' AND game_id=src.ids;">
+                   value="select g.title, count(*) as sells from carts join games g on g.id = carts.game_id where status='payed' group by game_id order by sells desc;">
             <div class="statements">
                 <input type="submit" value="Выполнить">
             </div>

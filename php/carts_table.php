@@ -87,7 +87,27 @@ where dst.id = src.id;">
             <input type="submit" value="Да">
         </span>
     </form>
+
+    <form action="handler.php" class="operation" method="post">
+        <input type="hidden" name="query"
+               value="DELETE FROM carts WHERE game_id=:game_id AND customer_id=:customer_id AND status!='payed';">
+        <input type="hidden" name="back" value="carts_table.php">
+        <span>
+            Хотите удалить из корзины
+            <?
+            echo Utils::renderQueryToSelect("customer_id", "email", "customers");
+            ?>
+
+            игру
+            <?
+            echo Utils::renderQueryToSelect("game_id", "title", "games");
+            ?>
+            ?
+            <input type="submit" value="Да">
+        </span>
+    </form>
 </div>
+
 <?
 include "./html/bottom.html";
 ?>
