@@ -9,7 +9,7 @@ services:
     environment:
       LANG: C.UTF-8
       MYSQL_ROOT_PASSWORD: my_secret_pw
-      MYSQL_DATABASE: games_db
+      MYSQL_DATABASE: game_db
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpass
     healthcheck:
