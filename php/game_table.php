@@ -81,7 +81,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица игр")
 
     <script>
         function update(id) {
-            return update_values(`http://${host}/api/get_game.php?id=${id}`);
+            return update_values(`${location.protocol}://${host}/api/get_game.php?id=${id}`);
         }
     </script>
 

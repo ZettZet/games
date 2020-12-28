@@ -75,7 +75,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица скидок")
     </div>
     <script>
     function update(id) {
-    let sm = update_values(`http://${host}/api/get_discount.php?id=${id}`);
+    let sm = update_values(`${location.protocol}//${host}/api/get_discount.php?id=${id}`);
     console.log(sm);
     return sm;
     }

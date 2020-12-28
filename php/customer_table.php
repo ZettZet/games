@@ -76,7 +76,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица покупателе
 
     <script>
         function update(id) {
-            return update_values(`http://${host}/api/get_customer.php?id=${id}`);
+            return update_values(`${location.protocol}//${host}/api/get_customer.php?id=${id}`);
         }
     </script>
 

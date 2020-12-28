@@ -61,7 +61,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица категорий")
 
 <script>
     function update(id) {
-        return update_values(`http://${host}/api/get_category_name.php?id=${id}`);
+        return update_values(`${location.protocol}//${host}/api/get_category_name.php?id=${id}`);
     }
 </script>
 <?
