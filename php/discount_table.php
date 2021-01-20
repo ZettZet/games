@@ -52,12 +52,13 @@ echo Utils::renderHeader("./html/top.html", "Таблица скидок")
             размер скидки на
             <input type="number" id="percent" max="100" min="0" name="percent" required>
                 дату начала на
-            <input type="date" id="starts" name="new_starts" onchange="validate_date()" required>
+            <input type="date" id="starts" name="starts" onchange="validate_date()" required>
                 и дату конца на
-            <input type="date" id="ends" name="new_ends" onchange="validate_date()" required>
+            <input type="date" id="ends" name="ends" onchange="validate_date()" required>
             ?
             <input type="submit" value="Да">
         </span>
+        </form>
 
         <form action="handler.php" class="operation" method="post">
             <input type="hidden" name="query" value="DELETE FROM discount WHERE id=:id_discount_selector">
@@ -74,11 +75,11 @@ echo Utils::renderHeader("./html/top.html", "Таблица скидок")
 
     </div>
     <script>
-    function update(id) {
-    let sm = update_values(`${location.protocol}//${host}/api/get_discount.php?id=${id}`);
-    console.log(sm);
-    return sm;
-    }
+        function update(id) {
+            let sm = update_values(`${location.protocol}//${host}/api/get_discount.php?id=${id}`);
+            console.log(sm);
+            return sm;
+        }
     </script>
 <?
 include "./html/bottom.html";
