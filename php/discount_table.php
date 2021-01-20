@@ -27,7 +27,7 @@ echo Utils::renderHeader("./html/top.html", "Таблица скидок")
     <div class="operations">
         <form action="handler.php" class="operation" method="post">
             <input type="hidden" name="query"
-                   value="INSERT INTO discount(percent, starts, ends) VALUES (:new_percent, :new_starts, :new_ends);">
+                   value="INSERT INTO discount(percent, starts, ends) VALUES (:new_percent, :starts, :ends);">
             <input type="hidden" name="back" value="discount_table.php">
             <span>
             Объявить скидку на

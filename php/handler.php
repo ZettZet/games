@@ -11,7 +11,6 @@ echo $buffer;
 <h1>Таблицы</h1>
 <?
 if (!empty($_POST)) {
-
     include "Utils.php";
     $db = Utils::getPDO();
     $query = $db->prepare($_POST['query']);
